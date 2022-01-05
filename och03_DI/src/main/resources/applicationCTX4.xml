@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="collectionBean" class="DI04.CollectionBean">
+		<property name="addressList"> <!-- 생성자가 아니라 set으로 되어있어서 <property>형식으로 한다 -->
+			<map>
+				<entry>
+					<key><value>홍길동</value></key> <!-- 키 -->
+					<value>율도국</value>	<!-- 값 -->
+				</entry>
+				<entry>
+					<key><value>중앙</value></key> <!-- 키 -->
+					<value>강남</value>	<!-- 값 -->
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+</beans>

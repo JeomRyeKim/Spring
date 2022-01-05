@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="student1" class="DI03.Student"> <!-- public Student()생성자 순서대로 넣어야함 -->
+		<constructor-arg>
+			<value>연개소문</value>
+		</constructor-arg>
+		<constructor-arg value="50"/>
+		<constructor-arg>
+			<value>4학년</value>
+		</constructor-arg>
+		<constructor-arg value="25번"></constructor-arg>
+		<property name="name"><value>연아들</value></property>
+	</bean>
+	<!-- 같은 클래스를 여러 이름으로 여러 값을 넣어서 사용 가능 -->
+	<bean id="student2" class="DI03.Student"> <!-- index=""로 순서 변경 가능 근데 사용 안하는걸 권장함 -->
+		<constructor-arg index="1" value="38"/>
+		<constructor-arg index="0">
+			<value>양만춘</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>3학년</value>
+		</constructor-arg>
+		<constructor-arg value="11번"></constructor-arg>
+	</bean>
+	
+	<bean id="studentInfo" class="DI03.StudentInfo">
+		<constructor-arg>
+			<ref bean="student1"/>
+		</constructor-arg>
+	</bean>
+</beans>

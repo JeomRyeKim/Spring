@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+		
+	<context:annotation-config></context:annotation-config> <!-- annotation을 읽음  -->
+	<bean class="DI08.ApplicationConfig"></bean>
+	
+	<bean id="student2" class="DI08.Student">
+		<constructor-arg value="양만춘"></constructor-arg>
+		<constructor-arg value="30"></constructor-arg>
+		<constructor-arg>
+			<list>
+				<value>활쏘기</value>
+				<value>안시성</value>
+			</list>
+		</constructor-arg>
+		<property name="height" value="175"></property>
+		<property name="weight" value="70"></property>
+	</bean>
+</beans>

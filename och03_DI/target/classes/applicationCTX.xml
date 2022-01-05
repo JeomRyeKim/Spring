@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="calculator" class="och03_DI.Calculator"></bean>
+	<bean id="myCalculator" class="och03_DI.MyCalculator">	<!-- MyCalculator.java의 멤버변수들 선언 -->
+		<property name="calculator">	<!-- Call By Refernce : 객체인 경우 ref로 값을 넘겨줘야 함 -->
+			<ref bean="calculator"/>	<!-- <bean id="calculator"와 <ref bean="calculator"가 같아야 함 -->
+		</property>
+		<property name="firstNum" value="20"></property>	<!-- Call By Value : 기본형인 경우 -->
+		<property name="secondNum" value="2"></property>	<!-- Call By Value -->
+	</bean>
+</beans>

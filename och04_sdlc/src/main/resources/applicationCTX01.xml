@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	
+	<context:annotation-config/> <!-- annotation방식으로 받는다 -->
+	
+	<bean id="student" class="sdlc01.Student">
+		<constructor-arg value="김춘추"></constructor-arg>
+		<constructor-arg value="30"></constructor-arg>
+	</bean>
+	
+	<bean id="otherStudent" class="sdlc01.OtherStudent">
+		<constructor-arg value="유성룡"></constructor-arg>
+		<constructor-arg value="50"></constructor-arg>
+	</bean>
+</beans>

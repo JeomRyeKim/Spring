@@ -34,7 +34,7 @@ public class ApplicationConfig {
 	}
 	
 	@Bean
-	public AdminConnection adminConnection() {
+	public AdminConnection adminConfig() {
 		AdminConnection adminConnection = new AdminConnection();
 		System.out.println("3. adminConfig Run");
 		adminConnection.setAdminId(adminId);

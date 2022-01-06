@@ -8,14 +8,14 @@ public class MainClass {
 	public static void main(String[] args) {
 		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX8.xml");
 		
-		Student student1 = ctx.getBean("student1", DI08.Student.class); //annotation으로 하기
+		Student student1 = ctx.getBean("student1", Student.class); //annotation으로 하기
 		System.out.println("이름 : " + student1.getName());
 		System.out.println("나이 : " + student1.getAge());
 		System.out.println("취미 : " + student1.getHobbies());
 		System.out.println("키 : " + student1.getHeight());
 		System.out.println("몸무게 : " + student1.getWeight());
 		
-		Student student2 = ctx.getBean("student2", DI08.Student.class); //XML로 하기
+		Student student2 = ctx.getBean("student2", Student.class); //XML로 하기
 		System.out.println("이름 : " + student2.getName());
 		System.out.println("나이 : " + student2.getAge());
 		System.out.println("취미 : " + student2.getHobbies());

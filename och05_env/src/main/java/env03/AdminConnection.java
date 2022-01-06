@@ -9,11 +9,11 @@ public class AdminConnection implements InitializingBean, DisposableBean {
 	private String sub_adminId;
 	private String sub_adminPw;
 
-	public void destroy() throws Exception {
+	public void destroy() throws Exception { //객체 삭제(시스템 종료)되면서 마지막에 실행되는 메소드
 		System.out.println("AdminConnection destroy() 소멸자 소멸전...");
 	}
 
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() throws Exception { //기본생성자 생성 직후 바로 실행되는 메소드
 		System.out.println("AdminConnection afterPropertiesSet() 생성자 생성이후...");
 	}
 

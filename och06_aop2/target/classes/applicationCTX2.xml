@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<bean id="logAop" class="aop2.LogAop"/>
+	<aop:config>
+		<aop:aspect id="logger" ref="logAop">
+			<aop:pointcut expression="within(aop2.buz.*)" id="pub"/>
+			<aop:around method="loggerAop" pointcut-ref="pub"/>
+		</aop:aspect>
+		<aop:aspect id="logger" ref="logAop"> <!-- <aop:aspect>안에 있는 id와 pointcut-ref 만 맞추면 됨 -->
+			<aop:pointcut expression="within(aop2.buz.*)" id="pub1"/>
+			<aop:before method="beforeAdvice" pointcut-ref="pub1"/>
+		</aop:aspect>
+		<aop:aspect id="logger" ref="logAop">
+			<aop:pointcut expression="within(aop2.buz.*)" id="pub"/>
+			<aop:after-returning method="afterReturningAdvice" pointcut-ref="pub"/>
+		</aop:aspect>
+		<aop:aspect id="logger" ref="logAop">
+			<aop:pointcut expression="within(aop2.buz.*)" id="pub"/>
+			<aop:after-throwing method="afterThrowingAdvice" pointcut-ref="pub"/>
+		</aop:aspect>
+		<aop:aspect id="logger" ref="logAop">
+			<aop:pointcut expression="within(aop2.buz.*)" id="pub"/>
+			<aop:after method="afterAdvice" pointcut-ref="pub"/>
+		</aop:aspect>
+	</aop:config>
+
+	<bean id="student" class="aop2.buz.Student"> <!-- 핵심관심사 -->
+		<property name="name" value="김춘추"></property>
+		<property name="age" value="10"></property>
+		<property name="gradeNum" value="3"></property>
+		<property name="classNum" value="5"></property>
+	</bean>
+	
+	<bean id="worker" class="aop2.buz.Worker"> <!-- 핵심관심사 -->
+		<property name="name" value="김유신"></property>
+		<property name="age" value="35"></property>
+		<property name="job" value="개발자"></property>
+	</bean>
+
+</beans>

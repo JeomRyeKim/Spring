@@ -16,13 +16,13 @@ public class StudentController {
 	@RequestMapping("/student/create")
 	public String studentCreate(@ModelAttribute("student") Student student, BindingResult result) {
 		// BindingResult -> 유효성 검증결과를 담아두는 객체
-		String page = "createDonePage";
+		String page = "createDonePage"; // 성공시
 		
 		StudentValidator validator = new StudentValidator();
 		validator.validate(student, result);
 		if(result.hasErrors()) { //error가 있으면 참으로 나옴
 			System.out.println("StudentValidator 오류 발생...");
-			page = "createPage";
+			page = "createPage"; // 에러 발생시
 		}
 		return page;
 	}

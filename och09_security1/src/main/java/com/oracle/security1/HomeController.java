@@ -36,4 +36,17 @@ public class HomeController {
 		return "home";
 	}
 	
+	 // web.xml - <url-pattern>*.html</url-pattern>때문에 .html을 붙여줌
+	@RequestMapping("/login.html") // user/123 admin/123 둘 다 들어갈 수 있음
+	public String login(Model model) {
+		System.out.println("HomeController login Start...");
+		return "security/login";
+	}
+	
+	@RequestMapping("/welcome.html") // user/123으로 들어가면 권한이 없다고 뜸 admin/123으로 로그인해야 들어갈 수 있음
+	public String welcome(Model model) {
+		System.out.println("HomeController welcome Start...");
+		return "security/welcome";
+	}
+	
 }

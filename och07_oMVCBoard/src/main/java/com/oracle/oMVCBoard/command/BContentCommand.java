@@ -5,9 +5,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.oracle.oMVCBoard.dao.BDao;
 import com.oracle.oMVCBoard.dto.BDto;
+import com.sun.istack.logging.Logger;
 
 public class BContentCommand implements BCommand {
 
@@ -20,7 +22,6 @@ public class BContentCommand implements BCommand {
 		BDto board = dao.contentView(bId);
 		
 		model.addAttribute("mvc_board", board);
-
 	}
-
+	
 }

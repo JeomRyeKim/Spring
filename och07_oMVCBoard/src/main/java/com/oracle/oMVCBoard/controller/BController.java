@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.oracle.oMVCBoard.command.BCommand;
 import com.oracle.oMVCBoard.command.BContentCommand;
+import com.oracle.oMVCBoard.command.BDeleteCommand;
 import com.oracle.oMVCBoard.command.BListCommand;
 import com.oracle.oMVCBoard.command.BModifyCommand;
 import com.oracle.oMVCBoard.command.BReplyCommand;
@@ -93,14 +94,15 @@ public class BController {
 		return "redirect:list";
 	}
 	
-//	@PostMapping(value = "/delete")
-//	public String delete(HttpServletRequest request, Model model) {
-//		logger.info("delete start...");
-//		model.addAttribute("request",request);
-//		command = new BDeleteCommand();
-//		command.execute(model);
-//		
-//		return "redirect:list";
-//	}
+	@RequestMapping("/delete")
+	public String delete(HttpServletRequest request, Model model) {
+		logger.info("delete start...");
+		
+		model.addAttribute("request",request);
+		command = new BDeleteCommand();
+		command.execute(model);
+		
+		return "redirect:list";
+	}
 	
 }

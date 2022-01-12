@@ -70,7 +70,7 @@ public class BDao {
 			//e.printStackTrace();
 		}finally {
 			try {
-				// 안 닫아도 실행에는 문제 없지만 컴퓨터에 과부하가 걸려 컴퓨터가 죽을 수 있음..
+				// 안 닫아도 실행에는 문제 없지만 컴퓨터에 과부하가 걸려 서버가 죽을 수 있음..
 				if(resultSet!=null) resultSet.close(); 
 				if(preparedStatement!=null) preparedStatement.close(); 
 				if(connection!=null) connection.close();
@@ -258,8 +258,6 @@ public class BDao {
 	//답변저장 버튼 누를 때
 	public void reply(String bId, String bName, String bTitle, String bContent, String bGroup, String bStep, String bIndent) {
 		// 새로 입력하는 댓글이 기존의 댓글과 bGroup =같고   &  기존의 댓글보다 bStep >작으면  =>  bStep + 1
-		// 기존의 댓글이 없으면 bStep >이 성립이 되지 않으니 replyShape()메소드가 적용X
-		// 최종적으로 원글의 첫댓글 + 대댓글은 replyShape 거치치X
 		replyShape(bGroup, bStep);
 		
 		Connection connection = null;
@@ -304,6 +302,9 @@ public class BDao {
 		// 댓글을 입력할 때마다 처리를 해주기 때문에 그래서 댓글들이 늘어갈 때마다 기존에 있던 댓글들은 계속 +1 +1 +1이 됨
 		// bStep, bIndent이 0이면 원글이고 1이면 댓글, 2이면 대댓글...
 		// list.jsp - <c:forEach begin="1" end="${mvc_board.bIndent}">-</c:forEach> : bIndent가 1이면 - 댓글, 2개면 --대댓글, 3개면 ---대대댓글... (들여쓰기 의미)
+		// 기존의 댓글이 없으면 bStep >이 성립이 되지 않으니 replyShape()메소드가 적용X
+		// 대댓글을 달 땐 기존 댓글의 bStep(1) > 대댓글bStep(1)이 성립되지 않아 replyShape()메소드X
+		// 최종적으로 원글의 첫댓글 + 대댓글은 replyShape 거치치X
 		String query = "update mvc_board set bStep = bStep + 1 where bGroup =? and bStep > ?";
 		
 		try {
@@ -325,8 +326,30 @@ public class BDao {
 		}
 		
 	}
-
-	
-	
+	//삭제 처리
+	public void delete(String bId) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String query = "delete from mvc_board where bId=?";
+		
+		try {
+			connection = dataSource.getConnection();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, Integer.parseInt(bId));
+			
+			int rn = preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("delete dataSource Exception -->" + e.getMessage());
+		}finally {
+			try {
+				if(preparedStatement!=null) preparedStatement.close(); 
+				if(connection!=null) connection.close();
+			} catch (Exception e2) {
+				System.out.println("delete dataSource Exception2 -->" + e2.getMessage());
+			}
+		}
+		
+	}
 
 }

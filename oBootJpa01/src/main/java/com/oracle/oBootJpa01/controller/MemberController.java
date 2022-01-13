@@ -48,8 +48,7 @@ public class MemberController {
 	public String search(Member member, Model model) {
 		System.out.println("MemberController /members/serch member.getName()->" + member.getName());
 		List<Member> memberList = memberService.getListSearchMember(member.getName());
-		System.out.println("MemberController /members/serch "
-				+ "memberList.size()->" + memberList.size());
+		System.out.println("MemberController /members/serch memberList.size()->" + memberList.size());
 		model.addAttribute("members", memberList);
 		
 		return "members/memberList";

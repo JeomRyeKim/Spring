@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>JPA 회원 수정</h1>
+<div class="container">
+	<form action="/members/memberUpdate" method="get">
+		<!-- ID : <input type="text" id="id" name="id" required="required"> -->
+		<input type="hidden" name="id" 	   th:value="${member.id}">
+		<input type="hidden" name="teamid" th:value="${member.team.team_id}">
+	         회원 이름 : <input type="text" id="name" name="name" 	 th:value="${member.name}"><p>
+		팀    이름 : <input type="text" id="name" name="teamname" th:value="${member.team.name}"><p>
+    	<button type="submit">회원 수정 처리</button>
+	</form>
+</div>
+</body>
+</html>

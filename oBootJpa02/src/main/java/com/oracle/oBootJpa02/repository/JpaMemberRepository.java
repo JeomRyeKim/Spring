@@ -29,7 +29,7 @@ public class JpaMemberRepository implements MemberRepository {
 
 	@Override
 	public List<Member> findAll() {	
-		// "select m from Member m"은  Member.class를 위한 쿼리문임 그래서 Member.java클래스에 들어가서 @Table,@GeneratedValue를 보고 createQuery가 진짜 쿼리를 만들어서 em으로 디비에 접속하여 값을 가져오는 것!
+		// "select m from Member m"은  Member.class를 위한 쿼리문임 그래서 Member.java클래스(객체)에 들어가서 @Table,@GeneratedValue를 보고 createQuery가 진짜 쿼리를 만들어서 em으로 디비(member1)에 접속하여 값을 가져오는 것!
 		// <Member>와 Member.class 가 같아야 함. 값을 1개만 받아오면 Member memberList = em...이런식으로 받아도 되지만, 여러개의 값을 받으므로 List형식으로 받음 그래서 받아오는 값도 List형식으로 바꿔주기 위해 getResultList() 사용
 		List<Member> memberList = em.createQuery("select m from Member m", Member.class).getResultList();
 		return memberList;

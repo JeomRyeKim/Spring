@@ -2,8 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="EmpDao"> <!-- 연결시킬 대상 -->
+<mapper namespace="EmpDao"> <!-- 연결시킬 대상 --> <!-- resultType : 리턴 타입 -->
 	<select id="tkEmpTotal" resultType="int"> <!-- id="tkEmpTotal" : EmpDaoImpl에서 선언했음 /count(*)과  resultType="int"이 맞아야 함 -->
 		select count(*) from emp
 	</select> <!-- 쿼리문 끝에 ; 빼줘야함 -->
+	<select id="tkEmpListAll3" parameterType="Emp" resultType="Emp"> <!-- <,>,<=,>=등은 인식X --> <!-- Type="Emp" 설정할 수 있는 이유는 configuration.xml에서 설정했기 때문 -->
+		select *
+		from (
+		   	  select rownum rn, a.*
+		  	  from (select * from emp order by empno) a
+		     )
+		where rn between #{start} and #{end}
+	</select>
+	<select id="tkEmpSelOne" parameterType="int" resultType="Emp">
+		select * from emp where empno = #{empno}
+	</select>
+	<update id="TKempUpdate" parameterType="Emp">
+		update emp set ename = #{ename}, job = #{job}, sal = #{sal}, 
+		hiredate = #{hiredate}, 
+		<if test="comm!=null"> comm = #{comm},</if>
+		mgr = ${mgr}, 
+		deptno=#{deptno} where empno = #{empno}
+	</update>
+	<select id="tkSelectManager" resultType="Emp">
+		select * from emp where empno in (select mgr from emp)
+	</select>
 </mapper>

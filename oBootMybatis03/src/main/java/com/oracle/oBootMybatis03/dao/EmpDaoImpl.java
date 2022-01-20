@@ -35,7 +35,8 @@ public class EmpDaoImpl implements EmpDao {
 		System.out.println("EmpDaoImpl listEmp start...");
 		try {
 			// Naming Rule					Map ID		  parameter
-			empList = session.selectList("tkEmpListAll3", emp); // row가 여러건
+			//empList = session.selectList("tkEmpListAll3", emp); // row가 여러건
+			empList = session.selectList("tkEmpListAll", emp); // row가 여러건
 		} catch (Exception e) {
 			System.out.println("EmpDaoImpl listEmp Exception->" + e.getMessage());
 		}
@@ -48,7 +49,7 @@ public class EmpDaoImpl implements EmpDao {
 		Emp emp = null;
 		try {
 			//						 mapper ID	   parameter
-			emp = session.selectOne("tkEmpSelOne", empno); 
+			emp = session.selectOne("tkEmpSelOne", empno); // 넘겨줄 데이터가 1개일 때는 이렇게 넘겨주고 2개 이상이면 DTO로 넘겨주기
 			System.out.println("EmpDaoImpl detail emp.getEname()->" + emp.getEname());
 		} catch (Exception e) {
 			System.out.println("EmpDaoImpl detail Exception->" + e.getMessage());

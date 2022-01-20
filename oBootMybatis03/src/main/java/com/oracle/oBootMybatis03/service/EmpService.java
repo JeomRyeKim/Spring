@@ -1,8 +1,10 @@
 package com.oracle.oBootMybatis03.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.oracle.oBootMybatis03.model.Dept;
+import com.oracle.oBootMybatis03.model.DeptVO;
 import com.oracle.oBootMybatis03.model.Emp;
 import com.oracle.oBootMybatis03.model.EmpDept;
 
@@ -24,4 +26,8 @@ public interface EmpService {
 	int delete(int empno);
 
 	List<EmpDept> listEmpDept();
+
+	void insertDept(DeptVO deptVO);
+
+	void selListDept(HashMap<String, Object> map);
 }

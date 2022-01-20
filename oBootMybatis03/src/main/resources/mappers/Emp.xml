@@ -14,6 +14,18 @@
 		     )
 		where rn between #{start} and #{end}
 	</select>
+	<select id="tkEmpListAll" parameterType="Emp" resultType="Emp"> <!-- <,>,<=,>=등은 인식X --> <!-- Type="Emp" 설정할 수 있는 이유는 configuration.xml에서 설정했기 때문 -->
+		<!-- <![CDATA[ ]]>를 사용하면 특수기호들을 하나의 sql쿼리문으로 인식해서 적용시켜줌 -->
+		<![CDATA[
+		select *
+		from (
+		   	  select rownum rn, a.*
+		  	  from (select * from emp order by empno) a
+		     )
+		where rn >= #{start} 
+		and   rn <= #{end}
+		]]>
+	</select>
 	<select id="tkEmpSelOne" parameterType="int" resultType="Emp">
 		select * from emp where empno = #{empno}
 	</select>

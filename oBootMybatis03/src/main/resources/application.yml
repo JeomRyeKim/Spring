@@ -3,8 +3,14 @@ server:
   port: 8189
 
 
-# Oracle Connect  
 spring:
+  # File Size
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+  # Oracle Connect  
   datasource:
     url: jdbc:oracle:thin:@localhost:1521/xe
     username: scott
@@ -24,8 +30,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: 
-    password: 
+    username: # 구글 아이디
+    password: # 구글 비밀번호
     properties: 
       mail:
         smtp:

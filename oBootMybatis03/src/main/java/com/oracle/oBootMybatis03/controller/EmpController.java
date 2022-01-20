@@ -1,5 +1,6 @@
 package com.oracle.oBootMybatis03.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.activation.DataSource;
@@ -19,12 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.oracle.oBootMybatis03.model.Dept;
+import com.oracle.oBootMybatis03.model.DeptVO;
 import com.oracle.oBootMybatis03.model.Emp;
 import com.oracle.oBootMybatis03.model.EmpDept;
 import com.oracle.oBootMybatis03.service.EmpService;
 import com.oracle.oBootMybatis03.service.Paging;
-
-import oracle.net.aso.s;
 
 @Controller
 public class EmpController {
@@ -156,10 +156,10 @@ public class EmpController {
 		String setfrom = "보낼 내 구글 이메일";
 		String title = "mailTransport 입니다";			// 제목
 		try {
-			// Mime 전자우편 Internet 표준 Format
+			// Mime 전자우편 Internet 표준 Format <- Mime프로토콜
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			messageHelper.setFrom(setfrom);	// 보내는 사람 생략하거나 하면 정상작동을 안 함
+			messageHelper.setFrom(setfrom);	// 보내는 사람 생략하거나 하면 정상작동을 안 함 (yml에 있는 이메일로 해야함)
 			messageHelper.setTo(tomail);	// 받는 사람 이메일
 			messageHelper.setSubject(title);// 메일 제목은 생략이 가능하다
 			
@@ -167,6 +167,7 @@ public class EmpController {
 			messageHelper.setText("임시 비밀번호입니다 : " + tempPassword); // 메일 내용
 			System.out.println("임시 비밀번호입니다 : " + tempPassword);
 			
+			// import javax.activation.DataSource; (DB연결하는 것과는 다름)
 			DataSource dataSource = new FileDataSource("c:\\log\\jung1.jpg"); // 첨부문서 보낼 때 
 			// addAttachment : 첨부하다
 			messageHelper.addAttachment(MimeUtility.encodeText("airport.png", "UTF-8", "B"), dataSource); //"airport.png"로 리네임 시킬 수 있다 / B : Base64
@@ -179,4 +180,48 @@ public class EmpController {
 		}
 		return "mailResult";
 	}
+	
+	// Procedure Test 입력화면
+	@RequestMapping(value = "writeDeptIn", method = RequestMethod.GET) // 프로시저 입력 
+	public String writeDeptIn(Model model) {
+		System.out.println("EmpController writeDeptIn start...");
+		
+		return "writeDept3";
+	}
+	
+	// Procedure Test 입력 후 VO 전달
+	@PostMapping(value = "writeDept")
+	public String writeDept(DeptVO deptVO, Model model) {
+		//DeptVo reDeptVo = es.insertDept(deptVO);	// 일반 Service
+		es.insertDept(deptVO);	// Procedure Call
+		if(deptVO == null) {
+			System.out.println("EmpController deptVo NULL");
+		}else {
+			System.out.println("EmpController deptVO.getOdeptno()->" + deptVO.getOdeptno());
+			System.out.println("EmpController deptVO.getOdname()->" + deptVO.getOdname());
+			System.out.println("EmpController deptVO.getOloc()->" + deptVO.getOloc());
+			model.addAttribute("msg", "정상 입력 되었습니다^^");
+			model.addAttribute("dept", deptVO);
+		}
+		return "writeDept3";
+	}
+	
+	@GetMapping(value = "writeDeptCursor")
+	public String writeDeptCursor(Model model) {
+		System.out.println("EmpController writeDeptCursor start...");
+		HashMap<String, Object> map = new HashMap<String, Object>(); //여러개의 파라미터를 담아서 가고 싶을 때 HashMap 사용
+		map.put("sDeptno", 10);	// DTO(정형화O, 문서화)로 넣기는 애매하고, 1회성으로 사용할 변수는 map(정형화X, 파악하기 힘듬, 일일이 추적해야함-권장 안 함)으로 사용함
+		map.put("eDeptno", 55); // DTO를 만들기 싫고(개발이 완료됐고 유지보수중일 때) 급할 때 사용함 그래서 map에 담아서 감
+		es.selListDept(map);
+		List<Dept> deptLists = (List<Dept>) map.get("dept"); // Dept.xml에서 선언한 #{dept,   mode=OUT, jdbcType=CURSOR,
+		for(Dept dept : deptLists) { // ResultSet
+			System.out.println("EmpController writeDeptCursor dept.getDname()->" + dept.getDname());
+			System.out.println("EmpController writeDeptCursor dept.getLoc()->" + dept.getLoc());
+		}
+		System.out.println("EmpController writeDeptCursor deptLists.size()->" + deptLists.size());
+		model.addAttribute("deptList", deptLists);
+		
+		return "writeDeptCursor";
+	}
+	
 }

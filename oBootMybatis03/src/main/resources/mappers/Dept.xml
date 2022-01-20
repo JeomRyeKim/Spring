@@ -11,5 +11,30 @@
 	<select id="TKselectDept" resultMap="DeptResult">
 		select * from dept
 	</select>
-
+	<!-- 프로시저는 statementType="CALLABLE"를 추가해줘야 함 (CALLABLE : 호출) -->
+	<!-- in : 프로시저 안으로 집어넣어서 이것으로 프로시저를 수행할 데이터, 입력용 / out : 프로시저 실행하고 난 뒤의 결과(받아오는값)가 out으로 선언된 변수로 들어감-->
+  <!-- call : 프로시저 호출하는 것 -->
+	<select id="ProcDept" parameterType="deptVO" statementType="CALLABLE">
+		{
+			call Dept_Insert3(
+					#{deptno,  mode=IN,  jdbcType=INTEGER},
+					#{dname,   mode=IN,  jdbcType=VARCHAR},
+					#{loc,     mode=IN,  jdbcType=VARCHAR},
+					#{odeptno, mode=OUT, jdbcType=INTEGER},
+					#{odname,  mode=OUT, jdbcType=VARCHAR},
+					#{oloc,    mode=OUT, jdbcType=VARCHAR}
+							)
+		}
+	</select>
+	<select id="ProcDeptList" parameterType="java.util.Map" statementType="CALLABLE">
+		{
+			call Dept_Cursor3(
+					#{sDeptno,mode=IN,  jdbcType=INTEGER},
+					#{eDeptno,mode=IN,  jdbcType=INTEGER},
+					#{dept,   mode=OUT, jdbcType=CURSOR,
+					  javaType=java.sql.ResultSet,
+					  resultMap=DeptResult}
+							 )
+		}
+	</select>
 </mapper>

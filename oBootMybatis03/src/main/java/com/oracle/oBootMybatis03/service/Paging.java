@@ -19,7 +19,7 @@ public class Paging {
 		}
 		start = (currentPage - 1) * rowPage + 1; 	// 시작시 1	11
 		end = start + rowPage - 1;					// 시작시 10	20
-		totalPage = (int)Math.ceil((double)total / rowPage);		// 시작시 2	5 (ceil : 높임)
+		totalPage = (int)Math.ceil((double)total / rowPage);		// 시작시 2	5 (ceil : 높임,올림)
 		//아래 페이징  시작 넘버	   2				2				 10
 		startPage = currentPage - (currentPage - 1) % pageBlock;	// 시작시 1	1  //currentPage - 1 % pageBlock 후에 -currentPage
 		endPage = startPage + pageBlock - 1;	

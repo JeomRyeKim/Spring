@@ -5,13 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.oracle.oBootMybatis03.dao.DeptDao;
 import com.oracle.oBootMybatis03.dao.EmpDao;
+import com.oracle.oBootMybatis03.model.Dept;
 import com.oracle.oBootMybatis03.model.Emp;
+import com.oracle.oBootMybatis03.model.EmpDept;
 
 @Service
 public class EmpServiceImpl implements EmpService {
-	@Autowired
+	@Autowired	// 필드 연결
 	private EmpDao ed;
+	@Autowired	// 필드 연결
+	private DeptDao dd;
 	
 	@Override
 	public int total() {
@@ -52,6 +57,40 @@ public class EmpServiceImpl implements EmpService {
 		System.out.println("EmpServiceImpl listManager empList.size()->" + empList.size());
 		
 		return empList;
+	}
+
+	@Override
+	public List<Dept> deptSelect() {
+		System.out.println("EmpServiceImpl deptSelect start...");
+		List<Dept> deptList = dd.deptSelect();
+		System.out.println("EmpServiceImpl deptSelect deptList.size()->" + deptList.size());
+		
+		return deptList;
+	}
+
+	@Override
+	public int insert(Emp emp) {
+		System.out.println("EmpServiceImpl insert start...");
+		int result = ed.insert(emp);
+		
+		return result;
+	}
+
+	@Override
+	public int delete(int empno) {
+		System.out.println("EmpServiceImpl delete start...");
+		int result = ed.delete(empno);
+		
+		return result;
+	}
+
+	@Override
+	public List<EmpDept> listEmpDept() {
+		System.out.println("EmpServiceImpl listEmpDept start...");
+		List<EmpDept> listEmpDept = ed.listEmpDept();
+		System.out.println("EmpServiceImpl listEmpDept listEmpDept.size()->" + listEmpDept.size());
+		
+		return listEmpDept;
 	}
 
 }

@@ -1,7 +1,5 @@
 package com.oracle.oBootMybatis03.dao;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.oracle.oBootMybatis03.model.Emp;
+import com.oracle.oBootMybatis03.model.EmpDept;
 
 @Repository
 public class EmpDaoImpl implements EmpDao {
-	@Autowired
+	@Autowired	// 필드 연결
 	private SqlSession session; // JDBC : DataSource / JPA : EntityManager / Mybatis : SqlSession
 	
 	@Override
@@ -81,5 +80,46 @@ public class EmpDaoImpl implements EmpDao {
 		}
 		return empList;
 	}
+
+	@Override
+	public int insert(Emp emp) {
+		System.out.println("EmpDaoImpl insert start...");
+		int result = 0;
+		try {
+			result = session.insert("insertEmp", emp);
+		} catch (Exception e) {
+			System.out.println("EmpDaoImpl insert Exception->" + e.getMessage());
+		}
+		return result;
+	}
+
+	@Override
+	public int delete(int empno) { // 실제로 프로젝트때는 완전 지우면 안되고 다른 테이블에 저장해놔야함
+		System.out.println("EmpDaoImpl delete start...");
+		int result = 0;
+		try {
+			result = session.delete("deleteEmp", empno);
+			System.out.println("EmpDaoImpl delete result->" + result);
+		} catch (Exception e) {
+			System.out.println("EmpDaoImpl delete Exception->" + e.getMessage());
+		}
+		return result;
+	}
+
+	@Override
+	public List<EmpDept> listEmpDept() {
+		System.out.println("EmpDaoImpl listEmpDept start...");
+		List<EmpDept> empDept = null;
+		try {
+			empDept = session.selectList("TKlistEmpDept");
+			System.out.println("EmpDaoImpl listEmpDept empDept.size()->" + empDept.size());
+		} catch (Exception e) {
+			System.out.println("EmpDaoImpl listEmpDept Exception->" + e.getMessage());
+		}
+		return empDept;
+	}
+
+
+
 
 }

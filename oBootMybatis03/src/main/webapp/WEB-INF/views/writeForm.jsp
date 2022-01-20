@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	function chk(){
-		if(!frm.empno.value){
+		if(!frm.empno.value){ // 사번 입력 안 했을 때
 			alert("사번을 입력한 후에 확인하세요");
 			frm.empno.focus();
 			return false;
@@ -40,14 +40,15 @@
 			</select>
 			</td>
 		</tr>
- <%-- 	<tr><th>부서코드</th><td>
-		<select name="deptno">
-		<c:forEach var="dept" items="${deptList}">
-				<option value="${dept.deptno}">${dept.dname}</option>
-		</c:forEach>
-		</select></td>
-	</tr>  
- --%>  
+	 	<tr><th>부서코드</th>
+	 		<td>
+			<select name="deptno">
+				<c:forEach var="dept" items="${deptList}">
+						<option value="${dept.deptno}">${dept.dname}</option>
+				</c:forEach>
+			</select>
+			</td>
+		</tr>  
 		<tr><td colspan="2"><input type="submit" value="확인"></td></tr>
 	</table>
 </form>

@@ -150,10 +150,10 @@ public class EmpController {
 	@RequestMapping(value = "mailTransport")
 	public String mailTransport(HttpServletRequest request, Model model) {
 		System.out.println("EmpController mailTransport start...");
-		String tomail = "gravity7273@gmail.com";		// 받는 사람 이메일
+		String tomail = "";		// 받는 사람 이메일
 		System.out.println("tomail");
 		
-		String setfrom = "gravity7273@gmail.com";
+		String setfrom = "보낼 내 구글 이메일";
 		String title = "mailTransport 입니다";			// 제목
 		try {
 			// Mime 전자우편 Internet 표준 Format

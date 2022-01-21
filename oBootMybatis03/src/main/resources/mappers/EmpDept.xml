@@ -8,5 +8,4 @@
 		where e.deptno = d.deptno
 		order by empno
 	</select>
-
 </mapper>

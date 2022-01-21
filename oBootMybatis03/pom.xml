@@ -50,7 +50,7 @@
 			<scope>runtime</scope>
 		</dependency>
  -->		
-		 <!-- oracle 라이브러리  -->
+		<!-- oracle 라이브러리  -->
         <dependency>
             <groupId>oracle.jdbc</groupId>
             <artifactId>OracleDriver</artifactId>

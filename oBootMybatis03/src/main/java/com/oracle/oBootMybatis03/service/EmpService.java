@@ -7,6 +7,7 @@ import com.oracle.oBootMybatis03.model.Dept;
 import com.oracle.oBootMybatis03.model.DeptVO;
 import com.oracle.oBootMybatis03.model.Emp;
 import com.oracle.oBootMybatis03.model.EmpDept;
+import com.oracle.oBootMybatis03.model.Member3;
 
 public interface EmpService {
 	int 	  total();
@@ -30,4 +31,10 @@ public interface EmpService {
 	void insertDept(DeptVO deptVO);
 
 	void selListDept(HashMap<String, Object> map);
+
+	int memCount(String id);
+
+	List<Member3> listMem(Member3 member3);
+
+	List<EmpDept> listEmp(EmpDept empDept); // 오버로딩(다형성)
 }

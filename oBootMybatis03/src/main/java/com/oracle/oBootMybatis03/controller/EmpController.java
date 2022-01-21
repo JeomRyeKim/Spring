@@ -23,6 +23,7 @@ import com.oracle.oBootMybatis03.model.Dept;
 import com.oracle.oBootMybatis03.model.DeptVO;
 import com.oracle.oBootMybatis03.model.Emp;
 import com.oracle.oBootMybatis03.model.EmpDept;
+import com.oracle.oBootMybatis03.model.Member3;
 import com.oracle.oBootMybatis03.service.EmpService;
 import com.oracle.oBootMybatis03.service.Paging;
 
@@ -213,7 +214,7 @@ public class EmpController {
 		map.put("sDeptno", 10);	// DTO(정형화O, 문서화)로 넣기는 애매하고, 1회성으로 사용할 변수는 map(정형화X, 파악하기 힘듬, 일일이 추적해야함-권장 안 함)으로 사용함
 		map.put("eDeptno", 55); // DTO를 만들기 싫고(개발이 완료됐고 유지보수중일 때) 급할 때 사용함 그래서 map에 담아서 감
 		es.selListDept(map);
-		List<Dept> deptLists = (List<Dept>) map.get("dept"); // Dept.xml에서 선언한 #{dept,   mode=OUT, jdbcType=CURSOR,
+		List<Dept> deptLists = (List<Dept>) map.get("dept"); // Dept.xml에서 선언한 #{dept,   mode=OUT, jdbcType=CURSOR, - 키(dept)를 적으면 값을 꺼내올 수 있음
 		for(Dept dept : deptLists) { // ResultSet
 			System.out.println("EmpController writeDeptCursor dept.getDname()->" + dept.getDname());
 			System.out.println("EmpController writeDeptCursor dept.getLoc()->" + dept.getLoc());
@@ -222,6 +223,70 @@ public class EmpController {
 		model.addAttribute("deptList", deptLists);
 		
 		return "writeDeptCursor";
+	}
+	
+	// interCeptor 시작화면
+	@RequestMapping(value = "interCeptorForm", method = RequestMethod.GET)
+	public String interCeptorForm(Model model) {
+		System.out.println("EmpController interCeptorForm start");
+		
+		return"interCeptorForm";
+	}
+	
+	// interCeptor 진행 Test 2
+	@RequestMapping(value = "interCeptor")
+	public String interCeptor(String id, Model model) {
+		System.out.println("EmpController interCeptor test start");
+		System.out.println("EmpController interCeptor id-> " + id);
+		int memCnt = es.memCount(id);
+		
+		System.out.println("memCnt->" + memCnt);
+		//List<EmpDept> listEmp = es.listEmp(EmpDept); // User가 가져오는 Service
+		// member1의 Count를 가져오는 Serivce 수행
+		//member.setId("kkk");
+		
+		model.addAttribute("id", id);
+		model.addAttribute("memCnt", memCnt);
+		System.out.println("EmpController interCeptor test end");
+		
+		return "interCeptor"; // User 존재하면 User 이용 조회 Page <- 공갈 페이지(String이라고 썼어야 했어서 형식때문에 써준것)
+	}
+	
+	// SampleInterceptor 내용을 받아서 처리
+	@RequestMapping(value = "doMemberWrite", method = RequestMethod.GET)
+	public String doMemberWrite(Model model, HttpServletRequest request) {
+		String ID = (String) request.getSession().getAttribute("ID");
+		System.out.println("doMemberWrite부터 하세요");
+		model.addAttribute("id", ID);
+		
+		return "doMemberWrite";
+	}
+	
+	// interCeptor 진행 Test
+	@RequestMapping(value = "doMemberList")
+	public String doMemberList(Model model, HttpServletRequest request) {
+		String ID = (String) request.getSession().getAttribute("ID");
+		System.out.println("EmpController doMemberList ID->" + ID);
+		Member3 member3 = null;
+		// Member3 List Get Service
+		List<Member3> listMem = es.listMem(member3);
+		model.addAttribute("ID", ID);
+		model.addAttribute("listMem", listMem);
+		
+		return "doMemberList"; // User 존재하면 User 이용조회 Page 
+	}
+	
+	// Ajax List Test
+	@RequestMapping(value = "listEmpAjax")
+	public String listEmpAjax(Model model) {
+		EmpDept empDept = null;
+		System.out.println("EmpController listEmpAjax start");
+		List<EmpDept> listEmp = es.listEmp(empDept);
+		System.out.println("EmpController listEmpAjax listEmp.size()->" + listEmp.size());
+		model.addAttribute("result", "kkk");
+		model.addAttribute("listEmp", listEmp);
+		
+		return "listEmpAjax";
 	}
 	
 }

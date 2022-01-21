@@ -20,7 +20,7 @@ spring:
   # ORM JPA
   jpa:
     hibernate:
-      ddl-auto: none # create
+      ddl-auto: none # create - Jpa할 때 잠깐 create로 바꿔서 했었음
     properties:
       hibernate:
         show_sql: true

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member1">
+	<select id="memCount" parameterType="java.lang.String" resultType="int">
+		select count(*) from member3 where id = #{id}
+	</select> <!-- id가 존재하면 1, 없으면 0을 돌려줌 -->
+	<select id="listMember3" parameterType="Member3" resultType="Member3">
+		select * from member3
+	</select>
+</mapper>

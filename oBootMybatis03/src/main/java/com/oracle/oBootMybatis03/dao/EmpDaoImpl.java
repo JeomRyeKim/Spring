@@ -120,6 +120,13 @@ public class EmpDaoImpl implements EmpDao {
 		return empDept;
 	}
 
+	@Override
+	public List<EmpDept> listEmp(EmpDept empDept) {
+		System.out.println("EmpDaoImpl listEmp start");
+		
+		return session.selectList("TKlistEmpDept", empDept); // 전에 쓴 mapper 재활용
+	}
+
 
 
 

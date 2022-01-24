@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.oracle.oBootMybatis03.model.Dept;
 import com.oracle.oBootMybatis03.model.DeptVO;
@@ -288,5 +290,26 @@ public class EmpController {
 		
 		return "listEmpAjax";
 	}
+	
+	@RequestMapping(value = "getDeptName", produces = "application/text; charset=UTF-8")
+	@ResponseBody // @RestController가 아니라 @Controller여서 필요함
+	public String getDeptName(int deptno, Model model) {
+		System.out.println("EmpController getDeptName deptno->" + deptno);
+		
+		return es.deptName(deptno); // String -> 부서명
+	}
+	
+	// Ajax  List Test
+	@RequestMapping(value="listEmpAjax2")
+	public String listEmpAjax2(Model model) {
+		EmpDept empDept = null;
+		System.out.println("listEmpAjax2 Start");
+		List<EmpDept> listEmp = es.listEmp(empDept); // 재활용
+		model.addAttribute("result","kkk");
+		model.addAttribute("listEmp",listEmp);
+		
+		return "listEmpAjax2";
+	}
+
 	
 }

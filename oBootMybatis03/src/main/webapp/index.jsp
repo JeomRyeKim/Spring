@@ -17,9 +17,9 @@
 	// response.sendRedirect("members"); /* Jpa와 Mybatis를 섞어서 함께 쓸 수 있다 */
 	// response.sendRedirect("interCeptorForm"); /* 인터셉터 : 중간에 채가는것 */
 	// response.sendRedirect("sendVO3"); /* RestController Test (VO) */
-	response.sendRedirect("listEmpAjax"); /* Ajax -> getDeptName listEmpAjax */
-	// response.sendRedirect("listEmpajax2");
-	// response.sendRedirect("chat");
+	// response.sendRedirect("listEmpAjax"); /* Ajax -> getDeptName listEmpAjax */
+	// response.sendRedirect("listEmpAjax2"); /* 멀티로 ajax하기 */
+	response.sendRedirect("chat"); /* 채팅, 메신저 */
 %>
 </body>
 </html>

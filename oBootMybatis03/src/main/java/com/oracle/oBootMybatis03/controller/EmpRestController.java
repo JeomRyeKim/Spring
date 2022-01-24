@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oracle.oBootMybatis03.model.Dept;
+import com.oracle.oBootMybatis03.model.Emp;
 import com.oracle.oBootMybatis03.model.SampleVO;
 import com.oracle.oBootMybatis03.service.EmpService;
 
@@ -50,6 +51,16 @@ public class EmpRestController {
 //		{"deptno":53,"dname":"전산3팀","loc":"홍대"},
 //		{"deptno":54,"dname":"전산4팀","loc":"홍대"},
 //		{"deptno":55,"dname":"전산5팀","loc":"홍대"}]
+	}
+	
+	@RequestMapping("/empnoDelete")
+	public String empnoDelete(Emp emp){ // 파라미터 2개 이상일 때 DTO롤 받으면 됨(Emp emp)이런식으로
+		System.out.println("EmpRestController empnoDelete start");
+		System.out.println("EmpRestController empnoDelete emp.getEname()->" + emp.getEname());
+		int delStatus = es.delete(emp.getEmpno()); // 재활용
+		String delStatusStr = Integer.toString(delStatus); // ajax로 받아야하니까 String으로 바꿔줘야 함
+		
+		return delStatusStr;
 	}
 	
 }

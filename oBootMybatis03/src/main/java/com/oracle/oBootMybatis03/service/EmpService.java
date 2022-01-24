@@ -37,4 +37,6 @@ public interface EmpService {
 	List<Member3> listMem(Member3 member3);
 
 	List<EmpDept> listEmp(EmpDept empDept); // 오버로딩(다형성)
+
+	String deptName(int deptno);
 }

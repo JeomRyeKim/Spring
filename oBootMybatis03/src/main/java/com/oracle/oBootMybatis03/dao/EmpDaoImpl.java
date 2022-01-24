@@ -127,6 +127,19 @@ public class EmpDaoImpl implements EmpDao {
 		return session.selectList("TKlistEmpDept", empDept); // 전에 쓴 mapper 재활용
 	}
 
+	@Override
+	public String deptName(int deptno) {
+		System.out.println("EmpDaoImpl deptName start");
+		String resultStr = "";
+		try {
+			resultStr = session.selectOne("TKdeptName", deptno);
+			System.out.println("EmpDaoImpl deptName resultStr-> " + resultStr);
+		} catch (Exception e) {
+			System.out.println("EmpDaoImpl deptName Exception->" + e.getMessage());
+		}
+		return resultStr;
+	}
+
 
 
 

@@ -19,7 +19,7 @@
 	// response.sendRedirect("sendVO3"); /* RestController Test (VO) */
 	// response.sendRedirect("listEmpAjax"); /* Ajax -> getDeptName listEmpAjax */
 	// response.sendRedirect("listEmpAjax2"); /* 멀티로 ajax하기 */
-	response.sendRedirect("chat"); /* 채팅, 메신저 */
+	 response.sendRedirect("chat"); /* 채팅, 메신저 */
 %>
 </body>
 </html>
